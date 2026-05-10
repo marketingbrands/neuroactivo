@@ -56,7 +56,7 @@
             font-weight: 600;
             border-radius: 10px;
             padding: 8px 4px;
-            font-size: 11px;
+            font-size: 12px;
             display: flex;
             align-items: center; justify-content: center;
             cursor: pointer;
@@ -66,6 +66,7 @@
             border-color: var(--primary);
             background-color: #F0FFF4;
             color: var(--primary-dark);
+            border-width: 2px;
         }
 
         .ans-btn { transition: all 0.2s; border: 2px solid #e2e8f0; font-weight: 800; padding: 8px; border-radius: 10px; font-size: 14px; background: white;}
@@ -93,6 +94,7 @@
             border: 1px solid #edf2f7;
             margin-bottom: 8px;
             transition: 0.2s;
+            cursor: pointer;
         }
         .premium-card:active { transform: scale(0.98); }
         .download-icon { color: var(--primary); font-size: 1.2rem; flex-shrink: 0; }
@@ -115,14 +117,14 @@
         .ent-card i { font-size: 1.3rem; }
         .ent-card h4 { font-size: 10px; font-weight: 800; text-transform: uppercase; line-height: 1.1; color: #4A5568;}
 
-        /* ETIQUETAS DE VALOR - AUMENTADAS SOLO AQUÍ */
-        .avail-text { font-size: 12px; font-weight: 900; color: #2F855A; text-transform: uppercase; letter-spacing: 0.01em; }
+        .avail-text { font-size: 11px; font-weight: 900; color: #2F855A; text-transform: uppercase; letter-spacing: 0.01em; }
     </style>
 </head>
 <body class="flex flex-col items-center">
 
     <main class="main-content p-4">
         
+        <!-- CABECERA -->
         <header id="app-header" class="flex items-center justify-between py-2 mb-1">
             <div class="flex items-center gap-2">
                 <div class="w-9 h-9 bg-green-700 rounded-xl flex items-center justify-center text-white shadow-sm">
@@ -138,6 +140,7 @@
             </button>
         </header>
 
+        <!-- NAVEGACIÓN PRINCIPAL (ARRIBA) - Oculto al inicio -->
         <nav id="main-nav" class="sticky top-2 bg-white/95 backdrop-blur-md border border-gray-200 p-2 flex justify-around z-50 shadow-lg rounded-2xl mb-4 hidden">
             <button onclick="navigate('plan')" class="nav-btn flex flex-col items-center w-20 py-1" data-screen="plan">
                 <i class="fas fa-calendar-day"></i>
@@ -153,107 +156,49 @@
             </button>
         </nav>
 
-        <section id="screen-setup-1" class="glass-card p-5 fade-in">
-            <div class="mt-24 mb-10 text-center">
+        <!-- PANTALLA INICIO (ÚNICA) -->
+        <section id="screen-setup" class="glass-card p-6 fade-in mt-12">
+            <div class="mt-4 mb-8 text-center">
                 <h2 class="text-3xl font-black text-green-800 uppercase tracking-tighter leading-none mb-3">MÉTODO NEURO ACTIVO 60+</h2>
                 <div class="h-1 w-20 bg-green-600 mx-auto rounded-full shadow-sm"></div>
             </div>
             
-            <div class="space-y-5 pt-2">
-                <div class="grid grid-cols-4 gap-3">
-                    <div class="col-span-3">
-                        <label class="text-[9px] font-black text-gray-500 uppercase ml-1 mb-1 block">Nombre Completo</label>
-                        <input type="text" id="user-name" placeholder="Escribe tu nombre" class="w-full p-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm font-bold outline-none focus:border-green-500 transition">
-                    </div>
-                    <div>
-                        <label class="text-[9px] font-black text-gray-500 uppercase ml-1 mb-1 block text-center">Edad</label>
-                        <input type="number" id="user-age" placeholder="65" class="w-full p-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm font-bold outline-none text-center focus:border-green-500 transition">
-                    </div>
+            <div class="space-y-6 pt-2">
+                
+                <div>
+                    <label class="text-xs font-black text-gray-500 uppercase ml-1 mb-2 block">Nombre:</label>
+                    <input type="text" id="user-name" placeholder="Ejemplo: Rosa" class="w-full p-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 text-base font-bold outline-none focus:border-green-500 transition text-gray-700 placeholder-gray-400">
                 </div>
 
                 <div>
-                    <label class="text-[9px] font-black text-gray-500 uppercase ml-1 mb-1.5 block text-center">Género</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="selectChoice('gender', 'M')" id="gender-M" class="toggle-btn py-3">Masculino</button>
-                        <button onclick="selectChoice('gender', 'F')" id="gender-F" class="toggle-btn py-3">Femenino</button>
+                    <label class="text-xs font-black text-gray-500 uppercase ml-1 mb-2 block tracking-wider">¿En qué nivel deseas entrenar hoy?</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="selectChoice('level', 'Basico')" id="level-Basico" class="toggle-btn py-4 text-sm active">Básico</button>
+                        <button onclick="selectChoice('level', 'Intermedio')" id="level-Intermedio" class="toggle-btn py-4 text-sm">Intermedio</button>
+                        <button onclick="selectChoice('level', 'Avanzado')" id="level-Avanzado" class="toggle-btn py-4 text-sm">Avanzado</button>
                     </div>
                 </div>
 
-                <div class="pt-4">
-                    <button onclick="goToStep(2)" class="w-full py-3.5 bg-green-700 hover:bg-green-800 transition text-white rounded-xl font-black text-sm shadow-lg shadow-green-100 uppercase tracking-widest">
-                        Siguiente Paso <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section id="screen-setup-2" class="glass-card p-5 fade-in hidden">
-            <div class="text-center mb-6 mt-2">
-                <h2 class="text-xl font-black text-green-800 uppercase tracking-tight">Tu Entrenamiento</h2>
-                <p class="text-xs text-gray-500 font-medium italic text-center">Paso 2: Nivel y Áreas</p>
-            </div>
-
-            <div class="space-y-5">
-                <div>
-                    <label class="text-[9px] font-black text-gray-500 uppercase ml-1 mb-1.5 block tracking-wider">Grado de Instrucción</label>
-                    <div class="space-y-2">
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="selectChoice('edu', 'Inicial')" id="edu-Inicial" class="toggle-btn py-3">Inicial / Primaria</button>
-                            <button onclick="selectChoice('edu', 'Secundaria')" id="edu-Secundaria" class="toggle-btn py-3">Secundaria</button>
-                        </div>
-                        <div class="grid grid-cols-1">
-                            <button onclick="selectChoice('edu', 'Superior')" id="edu-Superior" class="toggle-btn py-3">Superior / Universitario</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="text-[9px] font-black text-gray-500 uppercase ml-1 mb-1.5 block tracking-wider">Frecuencia de Olvidos</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="toggleForget('nombres')" id="forget-nombres" class="toggle-btn h-10">Nombres y caras</button>
-                        <button onclick="toggleForget('objetos')" id="forget-objetos" class="toggle-btn h-10">Dejo objetos</button>
-                        <button onclick="toggleForget('citas')" id="forget-citas" class="toggle-btn h-10">Citas y fechas</button>
-                        <button onclick="toggleForget('palabras')" id="forget-palabras" class="toggle-btn h-10">Palabras al hablar</button>
-                        <button onclick="toggleForget('nada')" id="forget-nada" class="toggle-btn col-span-2 py-2">Sin olvidos (Preventivo)</button>
-                    </div>
-                </div>
-
-                <div class="pt-4 text-center border-t border-gray-100">
-                    <p class="text-[10px] font-bold text-gray-700 mb-3 uppercase tracking-widest">Tiempo de entrenamiento:</p>
-                    <div class="grid grid-cols-3 gap-2 mb-5">
-                        <button onclick="selectChoice('time', 15)" id="time-15" class="toggle-btn py-3 text-sm font-black">15m</button>
-                        <button onclick="selectChoice('time', 30)" id="time-30" class="toggle-btn py-3 text-sm font-black">30m</button>
-                        <button onclick="selectChoice('time', 60)" id="time-60" class="toggle-btn py-3 text-sm font-black">60m</button>
+                <div class="pt-2 text-center border-t-2 border-gray-100">
+                    <p class="text-[11px] font-bold text-gray-700 mt-5 mb-4 uppercase tracking-widest">¿Cuánto tiempo dispones hoy?</p>
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        <button onclick="selectChoice('time', 15)" id="time-15" class="toggle-btn py-4 text-base font-black">15m</button>
+                        <button onclick="selectChoice('time', 30)" id="time-30" class="toggle-btn py-4 text-base font-black active">30m</button>
+                        <button onclick="selectChoice('time', 60)" id="time-60" class="toggle-btn py-4 text-base font-black">60m</button>
                     </div>
 
-                    <button onclick="prepareCalibration()" class="w-full py-4 bg-green-600 hover:bg-green-700 transition text-white rounded-xl font-black text-sm shadow-lg uppercase tracking-widest">
+                    <button onclick="startTraining()" class="w-full py-4 bg-green-600 hover:bg-green-700 transition text-white rounded-xl font-black text-lg shadow-lg uppercase tracking-widest">
                         Iniciar Entrenamiento <i class="fas fa-play ml-1"></i>
                     </button>
+                    
+                    <button onclick="navigate('library')" class="w-full py-4 mt-3 bg-orange-500 hover:bg-orange-600 transition text-white rounded-xl font-black text-sm shadow-md uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fas fa-folder-open text-lg"></i> Ir a Materiales / Drive
+                    </button>
                 </div>
             </div>
         </section>
 
-        <section id="screen-calibration" class="hidden fade-in text-center py-16 px-4">
-            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse-animation animate-bounce">
-                <i class="fas fa-magic text-3xl text-green-700"></i>
-            </div>
-            <h2 class="text-2xl font-black text-green-900 mb-2 uppercase tracking-tight">Analizando Perfil...</h2>
-            <div class="space-y-4 max-w-xs mx-auto text-left mt-8">
-                <div class="flex items-center gap-3 bg-white p-4 rounded-xl shadow-sm border border-green-50 transition-all duration-500" id="cal-1">
-                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                    <span class="text-xs font-bold text-gray-700">Optimizando áreas de Memoria</span>
-                </div>
-                <div class="flex items-center gap-3 bg-white p-4 rounded-xl shadow-sm border border-green-50 opacity-30 transition-all duration-500" id="cal-2">
-                    <i class="fas fa-check-circle text-gray-200 text-xl"></i>
-                    <span class="text-xs font-bold text-gray-700">Configurando Atención y Lógica</span>
-                </div>
-                <div class="flex items-center gap-3 bg-white p-4 rounded-xl shadow-sm border border-green-50 opacity-30 transition-all duration-500" id="cal-3">
-                    <i class="fas fa-check-circle text-gray-200 text-xl"></i>
-                    <span class="text-xs font-bold text-gray-700">Preparando Agilidad Motriz</span>
-                </div>
-            </div>
-        </section>
-
+        <!-- PANTALLA DASHBOARD RUTINA -->
         <section id="screen-plan" class="hidden fade-in">
             <div id="plan-header" class="mb-4">
                 <h2 id="welcome-txt" class="text-2xl font-black text-green-900 leading-tight">¡Hola!</h2>
@@ -275,11 +220,13 @@
             </div>
         </section>
 
+        <!-- PANTALLA JUEGO DIGITAL (CON RONDAS) -->
         <section id="screen-game" class="hidden fade-in">
             <div class="glass-card p-5 flex flex-col justify-between" style="min-height: 420px;">
                 <div class="text-center mb-3">
                     <span id="game-category" class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-[10px] font-black uppercase tracking-wider">Categoría</span>
-                    <h3 id="game-title" class="text-lg font-black mt-2 text-gray-800 leading-tight">Cargando...</h3>
+                    <p id="game-progress" class="text-[11px] font-black text-gray-500 tracking-widest uppercase mt-3 mb-0.5">RETO 1 DE 3</p>
+                    <h3 id="game-title" class="text-lg font-black mt-1 text-gray-800 leading-tight">Cargando...</h3>
                 </div>
                 
                 <div id="game-content" class="flex-grow flex flex-col justify-center items-center bg-gray-50 rounded-xl p-4 border border-dashed border-gray-200 text-center mb-4"></div>
@@ -291,12 +238,13 @@
                     <button onclick="handleGameHelper('solution')" class="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-black text-xs uppercase border border-gray-200 hover:bg-gray-200 transition shadow-sm">Solución</button>
                 </div>
 
-                <button id="btn-complete-game" onclick="taskDone()" class="w-full py-4 bg-orange-500 hover:bg-orange-600 transition text-white rounded-xl font-black text-sm hidden shadow-md uppercase tracking-wider">
-                    ¡Lo logré! Continuar <i class="fas fa-chevron-right ml-1"></i>
+                <button id="btn-complete-game" class="w-full py-4 bg-orange-500 hover:bg-orange-600 transition text-white rounded-xl font-black text-sm hidden shadow-md uppercase tracking-wider">
+                    <!-- El texto de este botón se actualiza dinámicamente -->
                 </button>
             </div>
         </section>
 
+        <!-- PANTALLA PRÁCTICA MANUAL (PDFs) -->
         <section id="screen-print" class="hidden fade-in">
             <div class="glass-card p-6 text-center border-t-[8px] border-blue-600 shadow-lg mt-2">
                 <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-sm">
@@ -326,6 +274,7 @@
             </div>
         </section>
 
+        <!-- PANTALLA SESIÓN COMPLETADA -->
         <section id="screen-finished" class="hidden fade-in text-center py-8 px-4">
             <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-5">
                 <i class="fas fa-trophy text-4xl text-orange-500 animate-bounce"></i>
@@ -348,7 +297,7 @@
                 <button onclick="navigate('library')" class="w-full py-4 bg-orange-500 hover:bg-orange-600 transition text-white rounded-xl font-black text-sm shadow-md uppercase tracking-widest flex justify-center items-center gap-2">
                     <i class="fas fa-book-open text-lg"></i> Material Complementario
                 </button>
-                <button onclick="window.open('https://www.facebook.com/share/r/1CcuXETN6x/', '_blank')" class="w-full py-4 bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl font-black text-xs shadow-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                <button onclick="window.open(CONFIG_LINKS.resena, '_blank')" class="w-full py-4 bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl font-black text-xs shadow-sm uppercase tracking-widest flex items-center justify-center gap-2">
                     <i class="fas fa-star text-yellow-300 text-base"></i> Deja tu reseña
                 </button>
                 <button onclick="location.reload()" class="w-full py-3.5 bg-white text-green-700 rounded-xl font-black text-xs shadow-sm uppercase tracking-widest border-2 border-green-700 hover:bg-green-50 transition">
@@ -357,38 +306,39 @@
             </div>
         </section>
 
+        <!-- PANTALLA BIBLIOTECA PREMIUM -->
         <section id="screen-library" class="hidden fade-in pb-8">
             <h2 class="text-2xl font-black text-green-900 mb-1 uppercase tracking-tighter">Material Premium</h2>
             <p class="text-xs text-gray-500 mb-6 font-medium italic">Acceso ilimitado a tu biblioteca oficial.</p>
             
             <div class="mb-6">
-                <div class="lib-section-title">MATERIAL DESCARGABLE PARA IMPRIMIR</div>
+                <div class="lib-section-title">MATERIAL DESCARGABLE</div>
                 <div class="space-y-3">
-                    <div onclick="window.open(CONFIG_LINKS.demoEbook, '_blank')" class="premium-card shadow-sm cursor-pointer hover:bg-gray-50">
+                    <div onclick="abrirPro(CONFIG_LINKS.demoEbook)" class="premium-card shadow-sm hover:bg-gray-50">
                         <div class="w-11 h-11 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 shadow-sm"><i class="fas fa-book-open"></i></div>
                         <div class="flex-1 min-w-0">
                             <h4 class="font-bold text-xs text-gray-800 uppercase leading-none mb-1">Ebook NeuroActivo 60+</h4>
-                            <p class="avail-text">+150 ACTIVIDADES</p>
+                            <p class="avail-text">+150 ACTIVIDADES DISP.</p>
                         </div>
                         <i class="fas fa-cloud-download-alt download-icon"></i>
                     </div>
-                    <div onclick="window.open(CONFIG_LINKS.demoGimnasia, '_blank')" class="premium-card shadow-sm cursor-pointer hover:bg-gray-50">
+                    <div onclick="abrirPro(CONFIG_LINKS.demoGimnasia)" class="premium-card shadow-sm hover:bg-gray-50">
                         <div class="w-11 h-11 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 shadow-sm"><i class="fas fa-hand-sparkles"></i></div>
                         <div class="flex-1 min-w-0">
                             <h4 class="font-bold text-xs text-gray-800 uppercase leading-none mb-1">Gimnasia Cerebral</h4>
-                            <p class="avail-text">+50 ACTIVIDADES</p>
+                            <p class="avail-text">+50 ACTIVIDADES DISP.</p>
                         </div>
                         <i class="fas fa-cloud-download-alt download-icon"></i>
                     </div>
-                    <div onclick="window.open(CONFIG_LINKS.demoMemoria, '_blank')" class="premium-card shadow-sm cursor-pointer hover:bg-gray-50">
+                    <div onclick="abrirPro(CONFIG_LINKS.demoMemoria)" class="premium-card shadow-sm hover:bg-gray-50">
                         <div class="w-11 h-11 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 shadow-sm"><i class="fas fa-puzzle-piece"></i></div>
                         <div class="flex-1 min-w-0">
                             <h4 class="font-bold text-xs text-gray-800 uppercase leading-tight mb-1 truncate">Estimulación Cognitiva</h4>
-                            <p class="avail-text">+250 ACTIVIDADES</p>
+                            <p class="avail-text">+250 ACTIVIDADES DISP.</p>
                         </div>
                         <i class="fas fa-cloud-download-alt download-icon"></i>
                     </div>
-                    <div onclick="window.open(CONFIG_LINKS.compilacionExtra, '_blank')" class="premium-card border border-green-300 bg-green-50 shadow-sm cursor-pointer hover:bg-green-100">
+                    <div onclick="abrirPro(CONFIG_LINKS.compilacionExtra)" class="premium-card border border-green-300 bg-green-50 shadow-sm hover:bg-green-100">
                         <div class="w-11 h-11 bg-green-600 text-white rounded-xl flex items-center justify-center text-2xl flex-shrink-0 shadow-sm"><i class="fas fa-layer-group"></i></div>
                         <div class="flex-1 min-w-0">
                             <h4 class="font-bold text-xs text-gray-900 uppercase leading-none mb-1">Compilación Premium</h4>
@@ -402,11 +352,11 @@
             <div class="mb-6">
                 <div class="lib-section-title">MATERIAL EXCLUSIVO</div>
                 <div class="grid grid-cols-2 gap-3 mb-3">
-                    <div class="ent-card cursor-pointer border border-purple-100 hover:bg-purple-50" onclick="window.open(CONFIG_LINKS.podcast, '_blank')">
+                    <div class="ent-card border border-purple-100 hover:bg-purple-50" onclick="abrirPro(CONFIG_LINKS.podcast)">
                         <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center shadow-sm mb-1"><i class="fas fa-microphone-alt text-lg"></i></div>
                         <h4 class="text-purple-800 text-[10px]">Audio Podcast</h4>
                     </div>
-                    <div class="ent-card cursor-pointer border border-red-100 hover:bg-red-50" onclick="window.open(CONFIG_LINKS.videoMenteActiva, '_blank')">
+                    <div class="ent-card border border-red-100 hover:bg-red-50" onclick="abrirPro(CONFIG_LINKS.videoMenteActiva)">
                         <div class="w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center shadow-sm mb-1"><i class="fas fa-play-circle text-lg"></i></div>
                         <h4 class="text-red-800 text-[9px] leading-tight">Mente Activa -<br>Memoria Fuerte</h4>
                     </div>
@@ -414,27 +364,27 @@
             </div>
 
             <div class="mb-6">
-                <div class="lib-section-title">ENTRETENIMIENTO (PRONTO)</div>
+                <div class="lib-section-title">ZONA DE ENTRETENIMIENTO - PLAN PREMIUM</div>
                 <div class="grid grid-cols-2 gap-3 mb-6">
-                    <div class="ent-card" onclick="showMessage('Disponible próximamente en futuras actualizaciones...')">
+                    <div class="ent-card" onclick="abrirPremium()">
                         <i class="fas fa-book-reader text-blue-500 mb-0.5"></i>
                         <h4 class="text-[10px]">Libros y Revistas</h4>
                     </div>
-                    <div class="ent-card" onclick="showMessage('Disponible próximamente en futuras actualizaciones...')">
+                    <div class="ent-card" onclick="abrirPremium()">
                         <i class="fas fa-film text-red-500 mb-0.5"></i>
-                        <h4 class="text-[10px]">Cine Mexicano</h4>
+                        <h4 class="text-[10px]">CINE CLÁSICO</h4>
                     </div>
-                    <div class="ent-card" onclick="showMessage('Disponible próximamente en futuras actualizaciones...')">
+                    <div class="ent-card" onclick="abrirPremium()">
                         <i class="fas fa-hat-cowboy text-yellow-600 mb-0.5"></i>
-                        <h4 class="text-[10px]">Cine Western</h4>
+                        <h4 class="text-[10px]">SERIES RETRO</h4>
                     </div>
-                    <div class="ent-card" onclick="showMessage('Disponible próximamente en futuras actualizaciones...')">
+                    <div class="ent-card" onclick="abrirPremium()">
                         <i class="fas fa-music text-purple-500 mb-0.5"></i>
                         <h4 class="text-[10px]">Musicoterapia</h4>
                     </div>
                 </div>
 
-                <div class="bg-pink-50 border border-pink-200 rounded-xl p-3 flex items-center justify-center gap-3 shadow-inner cursor-pointer hover:bg-pink-100 transition" onclick="showMessage('Nuevos juegos digitales en desarrollo. ¡Vuelve pronto!')">
+                <div class="bg-pink-50 border border-pink-200 rounded-xl p-3 flex items-center justify-center gap-3 shadow-inner cursor-pointer hover:bg-pink-100 transition" onclick="abrirPremium()">
                     <div class="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center shadow-sm"><i class="fas fa-gamepad text-xl"></i></div>
                     <div class="text-left flex-1">
                         <h4 class="font-black text-xs uppercase tracking-widest leading-none text-pink-700">Juego Interactivo</h4>
@@ -449,12 +399,13 @@
                     <p class="text-[16px] font-black text-green-700 uppercase tracking-tighter leading-none">Aprendizaje Global</p>
                 </div>
                 
-                <button onclick="window.open('https://www.facebook.com/share/r/1CcuXETN6x/', '_blank')" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl font-black text-xs uppercase shadow-md flex items-center justify-center gap-2">
+                <button onclick="abrirResena()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl font-black text-xs uppercase shadow-md flex items-center justify-center gap-2">
                     <i class="fas fa-star text-yellow-300 text-sm"></i> Deja tu reseña
                 </button>
             </div>
         </section>
 
+        <!-- PANTALLA PROGRESO -->
         <section id="screen-stats" class="hidden fade-in mt-2">
             <h2 class="text-2xl font-black text-green-900 mb-6 uppercase tracking-tighter text-center">Tu Evolución Mental</h2>
             <div class="glass-card p-4 mb-6 border-l-[6px] border-green-600 shadow-md">
@@ -474,6 +425,7 @@
 
     </main>
 
+    <!-- CUSTOM MODAL -->
     <div id="custom-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm px-4 fade-in">
         <div class="bg-white rounded-2xl p-6 shadow-2xl border border-gray-100 max-w-sm w-full text-center">
             <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -485,32 +437,92 @@
     </div>
 
     <script>
-        // CONSTANTES GLOBALES
-        const WORDS_POOL = ["Tierra", "Agua", "Fuego", "Viento", "Libro", "Vaso", "Silla", "Reloj", "Llave", "Fruta", "Árbol", "Cielo", "Pan", "Sol", "Luna", "Flor"];
+        // ======================================================================== //
+        // ⬇️⬇️⬇️ ZONA DE CONFIGURACIÓN (ACTUALIZA TEXTOS Y LINKS AQUÍ) ⬇️⬇️⬇️
+        // ======================================================================== //
         
+        const CONFIG = {
+            // ELIGE EL PLAN ACTUAL DEL USUARIO. Opciones válidas: 'DEMO', 'PRO', 'PREMIUM'
+            // 'DEMO'   -> 1 sola ronda de juegos. Todos los enlaces bloqueados.
+            // 'PRO'    -> Juegos completos. Enlaces descargables y exclusivos activos. Entretenimiento bloqueado.
+            // 'PREMIUM'-> Todo desbloqueado absolutamente.
+            PLAN: 'DEMO' 
+        };
+
+        const CONFIG_TEXTS = {
+            // Textos de los mensajes emergentes
+            mensajePro: "¡Activa la versión PRO para desbloquear este material!",
+            mensajePremium: "¡Activa el PLAN PREMIUM para desbloquear la Zona de Entretenimiento!",
+            mensajeJuegoDemo: "¡Prueba superada! Activa la versión PRO para jugar todas las rondas completas y sin límites.",
+            mensajeJuegoPremium: "¡Acceso Premium Autorizado! Estamos subiendo los nuevos contenidos de entretenimiento. ¡Vuelve pronto!",
+            mensajeReintentoDemo: "La función de repetir retos es exclusiva de la versión PRO. ¡Actívala para jugar sin límites!"
+        };
+
         const CONFIG_LINKS = {
+            // --- ENLACE PARA DEJAR RESEÑA (FACEBOOK) ---
+            resena: "https://www.facebook.com/share/p/1CkEnmqFDb/",
+
+            // --- MATERIALES PREMIUM (DESCARGABLES PDF) ---
             demoEbook: "https://drive.google.com/file/d/11OJzeg5_vYViA4P_NJmp3xJtW1p5eaWC/view",
             demoGimnasia: "https://drive.google.com/file/d/1JS9H6z--0kkoEhry5oJs1mQqwSPjeWZW/view",
-            demoMemoria: "https://drive.google.com/drive/folders/1VnnpE3bsRnttrQ95fXnyecW1K40QcDWq?usp=sharing",
+            demoMemoria: "https://drive.google.com/drive/folders/1jjnaPUjYtki-pgGDjVAeWrviBDcsdSor",
             compilacionExtra: "https://drive.google.com/drive/folders/1FxqRQdxjqWKgq3df2qZ2MYrKm96odqmQ?usp=sharing",
+            
+            // --- MATERIAL EXCLUSIVO (AUDIO Y VIDEO) ---
             podcast: "https://drive.google.com/file/d/1HHq7q2pkrC3F5ErC_rMhMH0Uf_a4TjVY/view",
             videoMenteActiva: "https://drive.google.com/file/d/1RW5gj8qvuTlPDTK-tkS_rxwbfSylg2RV/view?usp=sharing",
+            
+            // --- VIDEO EJEMPLO (NEURO GIMNASIA MANOS) ---
             videoNeuroGimnasia: "https://drive.google.com/file/d/1l4VKXRPl6WCbyGXAqNMDzlJD4wZ3PPGs/view?usp=sharing"
         };
 
+        // --- ENLACES DE LOS ARCHIVOS PDF (ESTIMULACIÓN COGNITIVA SEMANAL) ---
         const MEMORY_PDFS = [
             { f: '2026-semana-1.pdf', s: '2026-semana-1sb.pdf', l: 'https://drive.google.com/file/d/1zLfd13BxsFqZsTThKV6pDjdH_j3fO5GE/view?usp=sharing', sl: 'https://drive.google.com/file/d/1fybRt-ax4kibHt9sBQEVd1Yb7tyHSlrG/view?usp=sharing', count: 250 },
             { f: '2026-semana-2-b.pdf', s: '2026-semana-2s-b.pdf', l: 'https://drive.google.com/file/d/1u03NeHKDc7qeXhUetCWUr4Xm6keirv9X/view?usp=sharing', sl: 'https://drive.google.com/file/d/1D0BxKassvXxyUI5gvrCUIH-OLkqsQQFb/view?usp=sharing', count: 250 },
             { f: '2026-semana-3.pdf', s: '2026-semana-3s.pdf', l: 'https://drive.google.com/file/d/1LBi1l1Fh87o394zzNiwmbhjFjii_bYcF/view?usp=sharing', sl: 'https://drive.google.com/file/d/1RgajfVGttRmIDp7gyUujy9GpctbG1i1V/view?usp=sharing', count: 250 }
         ];
+        // ======================================================================== //
+        // ⬆️⬆️⬆️ FIN DE LA ZONA DE ENLACES Y CONFIGURACIÓN ⬆️⬆️⬆️
+        // ======================================================================== //
+
+        // BASE DE DATOS DE PALABRAS PARA JUEGO DE MEMORIA
+        const WORDS_POOL = [
+            "Tierra", "Agua", "Fuego", "Viento", "Libro", "Vaso", "Silla", "Reloj", "Llave", "Fruta", 
+            "Árbol", "Cielo", "Pan", "Sol", "Luna", "Flor", "Playa", "Nube", "Camino", "Río", "Nieve", 
+            "Gato", "Perro", "Casa", "Coche", "Lápiz"
+        ];
 
         let state = {
-            name: '', age: 65, gender: '', edu: 'Primaria', forget: [], time: 30,
+            name: '', level: 'Basico', time: 30,
             completedTasks: 0, totalTasks: 0,
             stats: [50, 45, 60, 50, 55], 
             plan: [], isFinished: false,
-            activeGame: { cat: '', correct: null, pool: [], answer: [], isSolShown: false }
+            activeGame: { cat: '', currentRound: 1, totalRounds: 3, correct: null, pool: [], answer: [], isSolShown: false, targetWords: 3 }
         };
+
+        // GESTIÓN DE ACCESOS SEGÚN PLAN (DEMO, PRO, PREMIUM)
+        function abrirPro(url) {
+            if (CONFIG.PLAN === 'DEMO') {
+                showMessage(CONFIG_TEXTS.mensajePro);
+            } else {
+                if (url) window.open(url, '_blank');
+            }
+        }
+
+        function abrirPremium(url) {
+            if (CONFIG.PLAN === 'DEMO' || CONFIG.PLAN === 'PRO') {
+                showMessage(CONFIG_TEXTS.mensajePremium);
+            } else {
+                if (url) window.open(url, '_blank');
+                else showMessage(CONFIG_TEXTS.mensajeJuegoPremium); 
+            }
+        }
+
+        function abrirResena() {
+            // Permitimos siempre dejar reseña independientemente del plan
+            window.open(CONFIG_LINKS.resena, '_blank');
+        }
 
         // UI HELPERS
         function showMessage(text) {
@@ -535,99 +547,63 @@
             if(el) el.classList.add('active');
         }
 
-        function toggleForget(f) {
-            if(f === 'nada') {
-                state.forget = ['nada'];
-                const btns = document.querySelectorAll('[id^="forget-"]');
-                btns.forEach(b => { if(b) b.classList.remove('active'); });
-                const el = document.getElementById('forget-nada');
-                if(el) el.classList.add('active');
-            } else {
-                state.forget = state.forget.filter(item => item !== 'nada');
-                const nadaEl = document.getElementById('forget-nada');
-                if(nadaEl) nadaEl.classList.remove('active');
-                const idx = state.forget.indexOf(f);
-                if(idx > -1) { 
-                    state.forget.splice(idx, 1); 
-                    const el = document.getElementById(`forget-${f}`);
-                    if(el) el.classList.remove('active'); 
-                } else { 
-                    state.forget.push(f); 
-                    const el = document.getElementById(`forget-${f}`);
-                    if(el) el.classList.add('active'); 
-                }
-            }
-        }
-
-        function goToStep(step) {
-            const step1 = document.getElementById('screen-setup-1');
-            const step2 = document.getElementById('screen-setup-2');
-            if(step === 2) {
-                if(step1) step1.classList.add('hidden');
-                if(step2) step2.classList.remove('hidden');
-                window.scrollTo(0,0);
-            }
-        }
-
-        function prepareCalibration() {
-            state.name = document.getElementById('user-name').value || "Explorador";
-            state.age = document.getElementById('user-age').value || 65;
-            const setupScr = document.getElementById('screen-setup-2');
-            const calibScr = document.getElementById('screen-calibration');
-            if(setupScr) setupScr.classList.add('hidden');
-            if(calibScr) calibScr.classList.remove('hidden');
-            window.scrollTo(0,0);
+        function startTraining() {
+            state.name = document.getElementById('user-name').value || "AMIG@";
+            generatePlan(state.time);
             
-            setTimeout(() => { 
-                const cal2 = document.getElementById('cal-2');
-                if(cal2) {
-                    cal2.classList.remove('opacity-30'); 
-                    const icon = cal2.querySelector('i');
-                    if(icon) icon.classList.replace('text-gray-200', 'text-green-500'); 
-                }
-            }, 1200);
-            setTimeout(() => { 
-                const cal3 = document.getElementById('cal-3');
-                if(cal3) {
-                    cal3.classList.remove('opacity-30'); 
-                    const icon = cal3.querySelector('i');
-                    if(icon) icon.classList.replace('text-gray-200', 'text-green-500'); 
-                }
-            }, 2400);
-            setTimeout(() => { startApp(state.time); }, 3500);
-        }
-
-        function startApp(min) {
-            generatePlan(min);
-            const calibScr = document.getElementById('screen-calibration');
+            const setupScr = document.getElementById('screen-setup');
             const planScr = document.getElementById('screen-plan');
             const nav = document.getElementById('main-nav');
             const welcome = document.getElementById('welcome-txt');
             
-            if(calibScr) calibScr.classList.add('hidden');
+            if(setupScr) setupScr.classList.add('hidden');
             if(planScr) planScr.classList.remove('hidden');
             if(nav) nav.classList.remove('hidden');
             if(welcome) welcome.innerText = `¡Hola, ${state.name}!`;
+            
             renderTaskList();
+            window.scrollTo(0,0);
         }
 
         function generatePlan(min) {
             state.plan = [];
-            state.plan.push({ type: 'app', cat: 'Memoria Digital', available: 250 });
-            state.plan.push({ type: 'app', cat: 'Cálculo Mental', available: 250 });
-            state.plan.push({ type: 'app', cat: 'Agudeza Visual', available: 250 });
+            
+            let appRounds = 3; 
+            if (min == 30) appRounds = 5;
+            if (min == 60) appRounds = 8;
+            
+            let visualRounds = 3;
 
-            const startEbookP = (state.edu === 'Superior') ? 42 : (state.edu === 'Secundaria') ? 32 : 22;
+            // Si está en MODO DEMO, forzamos a que solo puedan hacer 1 ronda
+            if (CONFIG.PLAN === 'DEMO') {
+                appRounds = 1;
+                visualRounds = 1;
+            }
+
+            state.plan.push({ type: 'app', cat: 'Memoria Digital', available: 500, rounds: appRounds });
+            state.plan.push({ type: 'app', cat: 'Cálculo Mental', available: 1000, rounds: appRounds });
+            state.plan.push({ type: 'app', cat: 'Agudeza Visual', available: 50, rounds: visualRounds });
+
+            let startEbookP = 22;
+            let gimStart = 4;
+            
+            if (state.level === 'Intermedio') {
+                startEbookP = 32;
+                gimStart = 11;
+            } else if (state.level === 'Avanzado') {
+                startEbookP = 42;
+                gimStart = 18;
+            }
+
             const weekIdx = Math.floor(Math.random() * MEMORY_PDFS.length);
             const chosenMem = MEMORY_PDFS[weekIdx];
-            const gimStart = (state.edu === 'Superior') ? 18 : (state.edu === 'Secundaria') ? 11 : 4;
 
             if (min == 15) {
                 state.plan.push({ type: 'print', cat: 'Método NeuroActivo 60+', file: 'METODO NEUROACTIVO', pages: `Imprimir Pág ${startEbookP} al ${startEbookP+2}`, url: CONFIG_LINKS.demoEbook, available: 150 });
             } else if (min == 30) {
                 state.plan.push({ type: 'print', cat: 'Método NeuroActivo 60+', file: 'METODO NEUROACTIVO', pages: `Imprimir Pág ${startEbookP} al ${startEbookP+2}`, url: CONFIG_LINKS.demoEbook, available: 150 });
                 state.plan.push({ type: 'print', cat: 'Neuro Gimnasia', file: 'NEURO GIMNASIA MANOS', activity: 'Reto de gestos geométricos', pages: `Imprimir Pág ${gimStart} y ${gimStart+1}`, url: CONFIG_LINKS.demoGimnasia, showVideo: true, available: 50 });
-                state.plan.push({ type: 'print', cat: 'Estimulación Cognitiva Integral', file: chosenMem.f, sol: chosenMem.s, url: chosenMem.l, hasSol: true, solUrl: chosenMem.sl, pages: "Imprimir Pág 1 y 2", summary: "Este programa fortalece razonamiento lógico, fluidez léxica y capacidad viso-espacial mediante desafíos estructurados.", available: 250 });
+                state.plan.push({ type: 'print', cat: 'Estimulación Cognitiva Integral', file: chosenMem.f, sol: chosenMem.s, url: chosenMem.l, hasSol: true, solUrl: chosenMem.sl, pages: "Imprimir Pág 1 y 2", summary: "Este programa fortalece razonamiento lógico, fluidez léxica y capacidad viso-espacial.", available: 250 });
             } else if (min == 60) {
                 state.plan.push({ type: 'print', cat: 'Método NeuroActivo 60+', file: 'METODO NEUROACTIVO', pages: `Imprimir Pág ${startEbookP} al ${startEbookP+3}`, url: CONFIG_LINKS.demoEbook, available: 150 });
                 state.plan.push({ type: 'print', cat: 'Neuro Gimnasia', file: 'NEURO GIMNASIA MANOS', activity: 'Reto de gestos geométricos', pages: `Imprimir Pág ${gimStart} al ${gimStart+3}`, url: CONFIG_LINKS.demoGimnasia, showVideo: true, available: 50 });
@@ -670,7 +646,7 @@
                                     <span class="text-[10px] font-black uppercase text-gray-500 tracking-widest leading-none">
                                         ${task.type === 'app' ? '<i class="fas fa-mobile-alt mr-1"></i> Digital.' : '<i class="fas fa-print mr-1"></i> Papel.'}
                                     </span>
-                                    ${task.type === 'print' ? `<span class="avail-text">+${task.available} ACTIVIDADES.</span>` : ''}
+                                    <span class="avail-text">+${task.available} ${task.type === 'app' ? 'RETOS DISPONIBLES.' : 'ACTIVIDADES DISP.'}</span>
                                 </div>
                             </div>
                         </div>
@@ -688,17 +664,61 @@
             if(percent) percent.innerText = `${Math.round(p)}% COMPLETADO`;
         }
 
+        // CONTROLADOR PRINCIPAL DE JUEGOS DIGITALES
         function launchTask(idx) {
             const task = state.plan[idx];
             if(task.type === 'app') {
+                state.activeGame = { 
+                    cat: task.cat, 
+                    currentRound: 1,
+                    totalRounds: task.rounds,
+                    correct: null, pool: [], answer: [], isSolShown: false, targetWords: 3
+                };
                 if(task.cat === 'Memoria Digital') runMemoryGame();
                 else if(task.cat === 'Cálculo Mental') runCalcGame();
                 else runAttentionGame();
             } else showPrint(task);
         }
 
+        function nextRound() {
+            state.activeGame.currentRound++;
+            
+            if(state.activeGame.cat === 'Memoria Digital') runMemoryGame();
+            else if(state.activeGame.cat === 'Cálculo Mental') runCalcGame();
+            else runAttentionGame();
+        }
+
+        function showAdvanceButton() {
+            const btn = document.getElementById('btn-complete-game');
+            if(!btn) return;
+            btn.classList.remove('hidden');
+            
+            if(state.activeGame.currentRound < state.activeGame.totalRounds) {
+                btn.innerHTML = 'Siguiente Reto <i class="fas fa-arrow-right ml-1"></i>';
+                btn.onclick = nextRound;
+                btn.className = "w-full py-4 bg-green-700 hover:bg-green-800 transition text-white rounded-xl font-black text-sm shadow-md uppercase tracking-wider";
+            } else {
+                if (CONFIG.PLAN === 'DEMO') {
+                    btn.innerHTML = 'Terminar Muestra <i class="fas fa-check-circle ml-1"></i>';
+                    btn.onclick = () => {
+                        showMessage(CONFIG_TEXTS.mensajeJuegoDemo);
+                        taskDone();
+                    };
+                } else {
+                    btn.innerHTML = '¡Lo logré! Continuar <i class="fas fa-check-circle ml-1"></i>';
+                    btn.onclick = taskDone;
+                }
+                btn.className = "w-full py-4 bg-orange-500 hover:bg-orange-600 transition text-white rounded-xl font-black text-sm shadow-md uppercase tracking-wider";
+            }
+        }
+
         function handleGameHelper(action) {
             if(action === 'retry') {
+                if (CONFIG.PLAN === 'DEMO') {
+                    showMessage(CONFIG_TEXTS.mensajeReintentoDemo);
+                    return;
+                }
+                
                 if(state.activeGame.cat === 'Memoria Digital') runMemoryGame();
                 if(state.activeGame.cat === 'Cálculo Mental') runCalcGame();
                 if(state.activeGame.cat === 'Agudeza Visual') runAttentionGame();
@@ -713,29 +733,46 @@
                     const buttons = document.querySelectorAll('.attn-btn');
                     buttons.forEach(b => { if(b.innerText === state.activeGame.correct) b.classList.add('correct-highlight'); });
                 }
-                document.getElementById('btn-complete-game')?.classList.remove('hidden');
+                showAdvanceButton();
             }
         }
 
+        // 1. MEMORIA DIGITAL
         function runMemoryGame() {
             navigate('game');
-            state.activeGame = { cat: 'Memoria Digital', correct: [], pool: [], answer: [], isSolShown: false };
+            
+            state.activeGame.isSolShown = false;
+            state.activeGame.answer = [];
+            state.activeGame.pool = [];
+            
+            let numWords = 3;
+            if(state.level === 'Intermedio') numWords = 4;
+            if(state.level === 'Avanzado') numWords = 5;
+            state.activeGame.targetWords = numWords;
+
             const cat = document.getElementById('game-category');
             const title = document.getElementById('game-title');
+            const prog = document.getElementById('game-progress');
+            
             if(cat) cat.innerText = "Memoria Digital";
-            if(title) title.innerText = "Memoriza estas 4 palabras";
+            if(prog) prog.innerText = `RETO ${state.activeGame.currentRound} DE ${state.activeGame.totalRounds}`;
+            if(title) title.innerText = `Memoriza estas ${numWords} palabras`;
+            
             document.getElementById('btn-complete-game')?.classList.add('hidden');
             document.getElementById('game-feedback')?.classList.add('hidden');
             document.getElementById('game-controls')?.classList.add('hidden');
             
-            state.activeGame.correct = [...WORDS_POOL].sort(() => 0.5 - Math.random()).slice(0, 4);
+            state.activeGame.correct = [...WORDS_POOL].sort(() => 0.5 - Math.random()).slice(0, numWords);
             const content = document.getElementById('game-content');
             if(content) content.innerHTML = `<div class="text-2xl font-black space-y-3 text-green-800 uppercase tracking-wider">${state.activeGame.correct.map(w => `<p class="fade-in bg-white px-5 py-2 rounded-xl shadow-sm border border-gray-100">${w}</p>`).join('')}</div>`;
             
             setTimeout(() => {
-                if(title) title.innerText = "Toca las 4 palabras que viste";
-                const distract = [...WORDS_POOL].filter(w => !state.activeGame.correct.includes(w)).sort(() => 0.5 - Math.random()).slice(0, 2);
+                if(title) title.innerText = `Toca las ${numWords} palabras que viste`;
+                
+                let distractCount = numWords; 
+                const distract = [...WORDS_POOL].filter(w => !state.activeGame.correct.includes(w)).sort(() => 0.5 - Math.random()).slice(0, distractCount);
                 state.activeGame.pool = [...state.activeGame.correct, ...distract].sort(() => 0.5 - Math.random());
+                
                 renderMemoryOptions();
                 document.getElementById('game-controls')?.classList.remove('hidden');
             }, 4500);
@@ -753,32 +790,93 @@
 
         function pickMemoryWord(btn, w) {
             if(state.activeGame.isSolShown) return;
+            const numWords = state.activeGame.targetWords;
             const idx = state.activeGame.answer.indexOf(w);
-            if(idx > -1) { state.activeGame.answer.splice(idx,1); btn.classList.remove('border-primary', 'bg-green-50', 'shadow-inner'); btn.classList.add('shadow-sm'); }
-            else if(state.activeGame.answer.length < 4) { state.activeGame.answer.push(w); btn.classList.add('border-primary', 'bg-green-50', 'shadow-inner'); btn.classList.remove('shadow-sm'); }
             
-            if(state.activeGame.answer.length === 4) {
+            if(idx > -1) { 
+                state.activeGame.answer.splice(idx,1); 
+                btn.classList.remove('border-primary', 'bg-green-50', 'shadow-inner'); 
+                btn.classList.add('shadow-sm'); 
+            } else if(state.activeGame.answer.length < numWords) { 
+                state.activeGame.answer.push(w); 
+                btn.classList.add('border-primary', 'bg-green-50', 'shadow-inner'); 
+                btn.classList.remove('shadow-sm'); 
+            }
+            
+            if(state.activeGame.answer.length === numWords) {
                 const win = state.activeGame.answer.every(v => state.activeGame.correct.includes(v));
                 if(win) finishGame("¡Excelente Memoria!");
                 else showMessage("Hay errores en tu selección. Inténtalo de nuevo o mira la solución.");
             }
         }
 
+        // 2. CÁLCULO MENTAL
         function runCalcGame() {
             navigate('game');
-            const a = Math.floor(Math.random()*20)+10, b = Math.floor(Math.random()*15)+5;
-            const correct = a + b;
-            const alts = [correct, correct+5, correct-3].sort(()=>0.5-Math.random());
-            state.activeGame = { cat: 'Cálculo Mental', correct: correct, isSolShown: false };
+            state.activeGame.isSolShown = false;
+            
+            let contentHTML = "";
+            let correct = 0;
+            let alts = [];
+
+            if (state.level === 'Basico') {
+                const a = Math.floor(Math.random()*20)+10; 
+                const b = Math.floor(Math.random()*15)+5;  
+                correct = a + b;
+                contentHTML = `<div class="text-6xl font-black mb-8 text-green-700 drop-shadow-sm">${a} + ${b}</div>`;
+                alts = [correct, correct+5, correct-3].sort(()=>0.5-Math.random());
+                
+            } else if (state.level === 'Intermedio') {
+                const a = Math.floor(Math.random()*30)+15; 
+                const b = Math.floor(Math.random()*15)+5;  
+                const c = Math.floor(Math.random()*15)+5;  
+                correct = a + b + c;
+                contentHTML = `
+                    <div class="flex justify-center w-full mb-4 mt-2">
+                        <div class="text-5xl font-black text-green-700 drop-shadow-sm text-right relative inline-block leading-tight">
+                            <div>${a}</div>
+                            <div>${b}</div>
+                            <div class="border-b-[5px] border-green-700 pb-2 mb-3">
+                                <span class="absolute -left-10">+</span>${c}
+                            </div>
+                        </div>
+                    </div>`;
+                alts = [correct, correct+8, correct-4].sort(()=>0.5-Math.random());
+                
+            } else {
+                const a = Math.floor(Math.random()*200)+100; 
+                const b = Math.floor(Math.random()*100)+50;  
+                const c = Math.floor(Math.random()*50)+20;   
+                correct = a + b + c;
+                contentHTML = `
+                    <div class="flex justify-center w-full mb-4 mt-2">
+                        <div class="text-5xl font-black text-green-700 drop-shadow-sm text-right relative inline-block leading-tight">
+                            <div>${a}</div>
+                            <div>${b}</div>
+                            <div class="border-b-[5px] border-green-700 pb-2 mb-3">
+                                <span class="absolute -left-12">+</span>${c}
+                            </div>
+                        </div>
+                    </div>`;
+                alts = [correct, correct+12, correct-10].sort(()=>0.5-Math.random());
+            }
+            
+            state.activeGame.correct = correct; 
+            
             const cat = document.getElementById('game-category');
             const title = document.getElementById('game-title');
+            const prog = document.getElementById('game-progress');
+            
             if(cat) cat.innerText = "Cálculo Mental";
+            if(prog) prog.innerText = `RETO ${state.activeGame.currentRound} DE ${state.activeGame.totalRounds}`;
             if(title) title.innerText = "¿Cuál es el resultado?";
+            
             document.getElementById('btn-complete-game')?.classList.add('hidden');
             document.getElementById('game-feedback')?.classList.add('hidden');
             document.getElementById('game-controls')?.classList.remove('hidden');
+            
             const content = document.getElementById('game-content');
-            if(content) content.innerHTML = `<div class="text-5xl font-black mb-6 text-green-700 drop-shadow-sm">${a} + ${b}</div><div class="grid grid-cols-3 gap-2 w-full">${alts.map(n => `<button onclick="checkCalc(this, ${n})" class="ans-btn py-4 text-xl shadow-sm hover:bg-gray-50 transition">${n}</button>`).join('')}</div>`;
+            if(content) content.innerHTML = `${contentHTML}<div class="grid grid-cols-3 gap-2 w-full">${alts.map(n => `<button onclick="checkCalc(this, ${n})" class="ans-btn py-4 text-xl shadow-sm hover:bg-gray-50 transition">${n}</button>`).join('')}</div>`;
         }
 
         function checkCalc(btn, val) {
@@ -787,27 +885,60 @@
             else { btn.classList.add('wrong-highlight'); showMessage("No es correcto. Intenta con otra cifra."); }
         }
 
+        // 3. AGUDEZA VISUAL
         function runAttentionGame() {
             navigate('game');
-            const emojis = ['🐯','🐼','🦊','🐸','🦁','🐷','🐘','🐨'], t = emojis[Math.floor(Math.random()*emojis.length)];
-            const pool = Array(8).fill(t);
-            const intruso = emojis.find(e => e !== t); pool.push(intruso);
-            state.activeGame = { cat: 'Agudeza Visual', correct: intruso, isSolShown: false };
+            state.activeGame.isSolShown = false;
+            state.activeGame.answer = []; 
+            
+            const allEmojis = ['🐯','🐼','🦊','🐸','🦁','🐷','🐘','🐨','🐵','🦉','🐙','🐢','🐝','🐞','🐠','🦋','🐌','🐛','🐬','🐧'];
+            
+            const shuffled = allEmojis.sort(() => 0.5 - Math.random()).slice(0, 8);
+            
+            const targetEmoji = shuffled[0];
+            const distractors = shuffled.slice(1);
+            
+            let pool = [targetEmoji, targetEmoji, ...distractors];
+            pool = pool.sort(() => 0.5 - Math.random());
+            
+            state.activeGame.correct = targetEmoji;
+            
             const cat = document.getElementById('game-category');
             const title = document.getElementById('game-title');
+            const prog = document.getElementById('game-progress');
+            
             if(cat) cat.innerText = "Agudeza Visual";
-            if(title) title.innerText = "Toca el ícono intruso";
+            if(prog) prog.innerText = `RETO ${state.activeGame.currentRound} DE ${state.activeGame.totalRounds}`;
+            if(title) title.innerText = "Toca las 2 imágenes iguales";
+            
             document.getElementById('btn-complete-game')?.classList.add('hidden');
             document.getElementById('game-feedback')?.classList.add('hidden');
             document.getElementById('game-controls')?.classList.remove('hidden');
+            
             const content = document.getElementById('game-content');
-            if(content) content.innerHTML = `<div class="grid grid-cols-3 gap-3">${pool.sort(()=>0.5-Math.random()).map(e => `<button onclick="checkAttn(this, '${e}')" class="attn-btn ans-btn text-4xl py-3 shadow-sm hover:scale-105 transition-transform bg-white">${e}</button>`).join('')}</div>`;
+            if(content) content.innerHTML = `<div class="grid grid-cols-3 gap-3 w-full px-2">${pool.map((e, idx) => `<button onclick="checkAttn(this, '${e}', ${idx})" class="attn-btn ans-btn text-5xl py-4 shadow-sm hover:scale-105 transition-transform bg-white">${e}</button>`).join('')}</div>`;
         }
 
-        function checkAttn(btn, val) {
+        function checkAttn(btn, val, idx) {
             if(state.activeGame.isSolShown) return;
-            if(val === state.activeGame.correct) { btn.classList.add('correct-highlight'); finishGame("¡Localizado con éxito!"); }
-            else { btn.classList.add('wrong-highlight'); showMessage("Ese no es el intruso. Sigue buscando..."); }
+            
+            if(state.activeGame.answer.includes(idx)) return;
+
+            if(val === state.activeGame.correct) { 
+                btn.classList.add('correct-highlight'); 
+                state.activeGame.answer.push(idx);
+                
+                if(state.activeGame.answer.length === 2) {
+                    finishGame("¡Excelente! Encontraste la pareja."); 
+                }
+            }
+            else { 
+                btn.classList.add('wrong-highlight'); 
+                showMessage("Esa no tiene pareja. Busca las dos iguales."); 
+                setTimeout(() => {
+                    if (!state.activeGame.isSolShown) btn.classList.remove('wrong-highlight');
+                }, 800);
+            }
         }
 
         function finishGame(msg) {
@@ -816,9 +947,10 @@
                 fb.innerText = msg; fb.classList.remove('hidden');
                 fb.className = "mt-3 text-center p-3 rounded-xl bg-green-600 text-white font-black text-xs uppercase shadow-sm";
             }
-            document.getElementById('btn-complete-game')?.classList.remove('hidden');
+            showAdvanceButton();
         }
 
+        // MANEJO DE TAREAS EN PAPEL (PDF)
         function showPrint(task) {
             navigate('print');
             const tit = document.getElementById('print-hability-title');
@@ -835,23 +967,24 @@
             let instrHtml = `<div class="glass-card bg-blue-50 p-4 rounded-2xl border-2 border-dashed border-blue-200 mb-4 text-center shadow-inner">
                     <p class="text-[11px] font-black text-blue-900 mb-1 uppercase tracking-tighter leading-tight">${task.file}</p>
                     <p class="text-xl font-black text-blue-600 uppercase leading-none mb-3">${task.pages}</p>
-                    <p class="avail-text bg-white inline-block px-3 py-1.5 rounded-full shadow-sm border border-green-200">+${task.available} ACTIVIDADES EN ESTA CATEGORÍA</p>
+                    <p class="avail-text bg-white inline-block px-3 py-1.5 rounded-full shadow-sm border border-green-200">+${task.available} ACTIVIDADES DISPONIBLES</p>
                 </div>`;
             
             if(task.activity) instrHtml += `<p class="text-xs font-bold text-gray-700 mb-3 uppercase text-center italic"><i class="fas fa-star text-yellow-400 mr-1"></i> ACTIVIDAD: ${task.activity}</p>`;
             if(task.summary) instrHtml += `<div class="bg-gray-100 p-3 rounded-xl border border-gray-200 mb-3 shadow-sm"><p class="text-[11px] text-gray-600 leading-relaxed font-bold">${task.summary}</p></div>`;
             
             ins.innerHTML = instrHtml;
-            document.getElementById('btn-open-pdf').onclick = () => window.open(task.url, '_blank');
+            
+            document.getElementById('btn-open-pdf').onclick = () => abrirPro(task.url);
             
             const vBtn = document.getElementById('btn-view-video');
             if(vBtn) {
-                if(task.showVideo) { vBtn.classList.remove('hidden'); vBtn.onclick = () => window.open(CONFIG_LINKS.videoNeuroGimnasia, '_blank'); }
+                if(task.showVideo) { vBtn.classList.remove('hidden'); vBtn.onclick = () => abrirPro(CONFIG_LINKS.videoNeuroGimnasia); }
                 else { vBtn.classList.add('hidden'); }
             }
             const sBtn = document.getElementById('btn-show-sol-manual');
             if(sBtn) {
-                if(task.hasSol) { sBtn.classList.remove('hidden'); sBtn.onclick = () => window.open(task.slUrl || task.solUrl, '_blank'); }
+                if(task.hasSol) { sBtn.classList.remove('hidden'); sBtn.onclick = () => abrirPro(task.slUrl || task.solUrl); }
                 else { sBtn.classList.add('hidden'); }
             }
         }
@@ -867,11 +1000,18 @@
             }
         }
 
+        // NAVEGACIÓN Y MENÚS
         function navigate(screen) {
+            if (screen !== 'setup') {
+                const nav = document.getElementById('main-nav');
+                if (nav) nav.classList.remove('hidden');
+            }
+
             if (state.isFinished && screen === 'plan') {
                 screen = 'finished';
             }
-            const scrs = ['setup-1', 'setup-2', 'plan', 'game', 'print', 'stats', 'library', 'calibration', 'finished'];
+
+            const scrs = ['setup', 'plan', 'game', 'print', 'stats', 'library', 'finished'];
             scrs.forEach(s => {
                 const el = document.getElementById(`screen-${s}`);
                 if(el) el.classList.add('hidden');
