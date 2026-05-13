@@ -120,7 +120,7 @@
         .avail-text { font-size: 11px; font-weight: 900; color: #2F855A; text-transform: uppercase; letter-spacing: 0.01em; }
     </style>
 </head>
-<body class="flex flex-col items-center">
+<body class="flex flex-col items-center relative">
 
     <main class="main-content p-4">
         
@@ -427,7 +427,12 @@
 
     </main>
 
-    <!-- CUSTOM MODAL -->
+    <!-- BOTÓN FLOTANTE: MEJORAR / APOYAR -->
+    <button id="btn-upgrade-float" onclick="openUpgradeModal()" class="hidden fixed bottom-6 right-4 z-40 bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 transition-transform hover:scale-105 font-black text-[11px] uppercase tracking-widest border-2 border-yellow-200">
+        <i class="fas fa-crown text-lg"></i> <span id="float-btn-text">Mejorar</span>
+    </button>
+
+    <!-- MODAL SIMPLE DE JUEGO (CORRECCIONES) -->
     <div id="custom-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm px-4 fade-in">
         <div class="bg-white rounded-2xl p-6 shadow-2xl border border-gray-100 max-w-sm w-full text-center">
             <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -435,6 +440,42 @@
             </div>
             <p id="modal-text" class="text-sm font-bold text-gray-700 mb-6 leading-relaxed"></p>
             <button onclick="closeMessage()" class="w-full bg-green-600 hover:bg-green-700 transition text-white py-3 rounded-xl font-bold uppercase text-xs tracking-widest shadow-md">Entendido</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE MEJORA DE CUENTA Y DONACIÓN (WHATSAPP + QR) -->
+    <div id="upgrade-modal" class="hidden fixed inset-0 z-[110] flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm px-4 fade-in">
+        <div class="bg-white rounded-3xl p-6 shadow-2xl border-2 border-yellow-200 max-w-sm w-full text-center relative">
+            <button onclick="closeUpgradeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center"><i class="fas fa-times"></i></button>
+            
+            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                <i class="fas fa-crown text-3xl text-yellow-500"></i>
+            </div>
+            
+            <h3 class="text-xl font-black text-gray-800 mb-2 uppercase tracking-tighter leading-tight" id="upgrade-title">MEJORAR CUENTA</h3>
+            <p class="text-[13px] text-gray-600 mb-5 font-medium leading-relaxed px-2" id="upgrade-text">Texto dinámico</p>
+            
+            <!-- SECCIÓN DEL CÓDIGO QR -->
+            <div class="bg-gray-50 p-4 rounded-2xl mb-5 border border-gray-200">
+                <p class="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">Escanea para apoyar / Donar</p>
+                
+                <div class="w-32 h-32 bg-white mx-auto rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 text-xs shadow-sm overflow-hidden p-2">
+                    <!-- ============================================== -->
+                    <!-- AQUÍ DEBES PONER LA ETIQUETA DE TU IMAGEN QR   -->
+                    <!-- Ejemplo: <img src="mi-qr.png" class="w-full h-full object-cover"> -->
+                    <!-- ============================================== -->
+                    <div class="text-center">
+                        <i class="fas fa-qrcode text-4xl mb-1 opacity-50"></i>
+                        <p class="text-[8px] uppercase font-bold">[Imagen de Código QR]</p>
+                    </div>
+                </div>
+
+                <p class="text-[10px] text-gray-500 mt-3 font-bold">Yape / Plin / PayPal</p>
+            </div>
+
+            <button onclick="window.open(CONFIG_LINKS.whatsapp, '_blank')" class="w-full py-4 bg-green-600 hover:bg-green-700 transition text-white rounded-xl font-black text-sm uppercase tracking-widest shadow-lg flex items-center justify-center gap-2">
+                <i class="fab fa-whatsapp text-xl"></i> Contactar por WhatsApp
+            </button>
         </div>
     </div>
 
@@ -452,8 +493,8 @@
         };
 
         const CONFIG_TEXTS = {
-            // Textos de los mensajes emergentes
-            mensajePro: "¡Activa la versión PRO para desbloquear este material!",
+            // Textos de los mensajes emergentes que llevan al cuadro de donación/mejora
+            mensajePro: "¡Activa la versión PRO para desbloquear todo este material maravilloso!",
             mensajePremium: "¡Activa el PLAN PREMIUM para desbloquear la Zona de Entretenimiento!",
             mensajeJuegoDemo: "¡Prueba superada! Activa la versión PRO para jugar todas las rondas completas y sin límites.",
             mensajeJuegoPremium: "¡Acceso Premium Autorizado! Estamos subiendo los nuevos contenidos de entretenimiento. ¡Vuelve pronto!",
@@ -462,6 +503,9 @@
         };
 
         const CONFIG_LINKS = {
+            // --- ENLACE DE WHATSAPP (ACTUALIZA AQUÍ TU NÚMERO Y MENSAJE) ---
+            whatsapp: "https://wa.me/51999999999?text=Hola,%20deseo%20apoyar%20el%20proyecto%20o%20mejorar%20mi%20plan%20en%20NeuroActivo%2060+",
+
             // --- ENLACE PARA DEJAR RESEÑA (FACEBOOK) ---
             resena: "https://www.facebook.com/share/p/1CkEnmqFDb/",
 
@@ -504,10 +548,39 @@
             activeGame: { cat: '', currentRound: 1, totalRounds: 3, correct: null, pool: [], answer: [], isSolShown: false, targetWords: 3 }
         };
 
+        // INICIALIZACIÓN DEL BOTÓN FLOTANTE AL CARGAR
+        document.addEventListener('DOMContentLoaded', () => {
+            const floatText = document.getElementById('float-btn-text');
+            if (floatText) {
+                if (CONFIG.PLAN === 'DEMO') floatText.innerText = 'Activar PRO';
+                else if (CONFIG.PLAN === 'PRO') floatText.innerText = 'Activar PREMIUM';
+                else floatText.innerText = 'Apoyar Proyecto';
+            }
+        });
+
+        // CONTROLADORES DE MODAL DE MEJORA Y DONACIONES
+        function openUpgradeModal(msg = "") {
+            const modal = document.getElementById('upgrade-modal');
+            const title = document.getElementById('upgrade-title');
+            const text = document.getElementById('upgrade-text');
+            
+            if (CONFIG.PLAN === 'DEMO') title.innerText = 'ACTIVA LA VERSIÓN PRO';
+            else if (CONFIG.PLAN === 'PRO') title.innerText = 'ACTIVA EL PLAN PREMIUM';
+            else title.innerText = 'APOYA NUESTRO PROYECTO';
+
+            text.innerText = msg || "Con tu valioso apoyo podemos seguir creando nuevos y mejores ejercicios para el bienestar cognitivo.";
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeUpgradeModal() {
+            document.getElementById('upgrade-modal').classList.add('hidden');
+        }
+
         // GESTIÓN DE ACCESOS SEGÚN PLAN (DEMO, PRO, PREMIUM)
         function abrirPro(url) {
             if (CONFIG.PLAN === 'DEMO') {
-                showMessage(CONFIG_TEXTS.mensajePro);
+                openUpgradeModal(CONFIG_TEXTS.mensajePro);
             } else {
                 if (url) window.open(url, '_blank');
             }
@@ -515,7 +588,7 @@
 
         function abrirPremium(url) {
             if (CONFIG.PLAN === 'DEMO' || CONFIG.PLAN === 'PRO') {
-                showMessage(CONFIG_TEXTS.mensajePremium);
+                openUpgradeModal(CONFIG_TEXTS.mensajePremium);
             } else {
                 if (url) window.open(url, '_blank');
                 else showMessage(CONFIG_TEXTS.mensajeJuegoPremium); 
@@ -523,14 +596,12 @@
         }
 
         function abrirResena() {
-            // Permitimos siempre dejar reseña independientemente del plan
             window.open(CONFIG_LINKS.resena, '_blank');
         }
 
         function handleReiniciar() {
-            // Validamos si el usuario puede reiniciar la app entera o no
             if (CONFIG.PLAN === 'DEMO') {
-                showMessage(CONFIG_TEXTS.mensajeReiniciarDemo);
+                openUpgradeModal(CONFIG_TEXTS.mensajeReiniciarDemo);
             } else {
                 location.reload();
             }
@@ -567,10 +638,12 @@
             const planScr = document.getElementById('screen-plan');
             const nav = document.getElementById('main-nav');
             const welcome = document.getElementById('welcome-txt');
+            const floatBtn = document.getElementById('btn-upgrade-float');
             
             if(setupScr) setupScr.classList.add('hidden');
             if(planScr) planScr.classList.remove('hidden');
             if(nav) nav.classList.remove('hidden');
+            if(floatBtn) floatBtn.classList.remove('hidden'); // Mostrar botón flotante
             if(welcome) welcome.innerText = `¡Hola, ${state.name}!`;
             
             renderTaskList();
@@ -713,7 +786,7 @@
                 if (CONFIG.PLAN === 'DEMO') {
                     btn.innerHTML = 'Terminar Muestra <i class="fas fa-check-circle ml-1"></i>';
                     btn.onclick = () => {
-                        showMessage(CONFIG_TEXTS.mensajeJuegoDemo);
+                        openUpgradeModal(CONFIG_TEXTS.mensajeJuegoDemo);
                         taskDone();
                     };
                 } else {
@@ -727,7 +800,7 @@
         function handleGameHelper(action) {
             if(action === 'retry') {
                 if (CONFIG.PLAN === 'DEMO') {
-                    showMessage(CONFIG_TEXTS.mensajeReintentoDemo);
+                    openUpgradeModal(CONFIG_TEXTS.mensajeReintentoDemo);
                     return;
                 }
                 
@@ -1014,9 +1087,13 @@
 
         // NAVEGACIÓN Y MENÚS
         function navigate(screen) {
+            const floatBtn = document.getElementById('btn-upgrade-float');
             if (screen !== 'setup') {
                 const nav = document.getElementById('main-nav');
                 if (nav) nav.classList.remove('hidden');
+                if (floatBtn) floatBtn.classList.remove('hidden');
+            } else {
+                if (floatBtn) floatBtn.classList.add('hidden');
             }
 
             if (state.isFinished && screen === 'plan') {
