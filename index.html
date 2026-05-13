@@ -135,7 +135,8 @@
                     <p class="text-[6px] font-bold text-green-600 tracking-widest uppercase mt-0.5">MÉTODO NEUROACTIVO 60+</p>
                 </div>
             </div>
-            <button onclick="location.reload()" class="px-2 py-1 rounded-lg bg-gray-100 text-gray-500 flex items-center gap-1.5 text-[8px] font-bold uppercase hover:bg-gray-200 transition">
+            <!-- Botón Reiniciar con Validación -->
+            <button onclick="handleReiniciar()" class="px-2 py-1 rounded-lg bg-gray-100 text-gray-500 flex items-center gap-1.5 text-[8px] font-bold uppercase hover:bg-gray-200 transition">
                 <i class="fas fa-redo-alt"></i> Reiniciar
             </button>
         </header>
@@ -297,10 +298,11 @@
                 <button onclick="navigate('library')" class="w-full py-4 bg-orange-500 hover:bg-orange-600 transition text-white rounded-xl font-black text-sm shadow-md uppercase tracking-widest flex justify-center items-center gap-2">
                     <i class="fas fa-book-open text-lg"></i> Material Complementario
                 </button>
-                <button onclick="window.open(CONFIG_LINKS.resena, '_blank')" class="w-full py-4 bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl font-black text-xs shadow-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                <button onclick="abrirResena()" class="w-full py-4 bg-blue-600 hover:bg-blue-700 transition text-white rounded-xl font-black text-xs shadow-sm uppercase tracking-widest flex items-center justify-center gap-2">
                     <i class="fas fa-star text-yellow-300 text-base"></i> Deja tu reseña
                 </button>
-                <button onclick="location.reload()" class="w-full py-3.5 bg-white text-green-700 rounded-xl font-black text-xs shadow-sm uppercase tracking-widest border-2 border-green-700 hover:bg-green-50 transition">
+                <!-- Botón Reiniciar con Validación -->
+                <button onclick="handleReiniciar()" class="w-full py-3.5 bg-white text-green-700 rounded-xl font-black text-xs shadow-sm uppercase tracking-widest border-2 border-green-700 hover:bg-green-50 transition">
                     Reiniciar Entrenamiento
                 </button>
             </div>
@@ -443,7 +445,7 @@
         
         const CONFIG = {
             // ELIGE EL PLAN ACTUAL DEL USUARIO. Opciones válidas: 'DEMO', 'PRO', 'PREMIUM'
-            // 'DEMO'   -> 1 sola ronda de juegos. Todos los enlaces bloqueados.
+            // 'DEMO'   -> 1 sola ronda de juegos. Todos los enlaces bloqueados. No permite reiniciar.
             // 'PRO'    -> Juegos completos. Enlaces descargables y exclusivos activos. Entretenimiento bloqueado.
             // 'PREMIUM'-> Todo desbloqueado absolutamente.
             PLAN: 'DEMO' 
@@ -455,7 +457,8 @@
             mensajePremium: "¡Activa el PLAN PREMIUM para desbloquear la Zona de Entretenimiento!",
             mensajeJuegoDemo: "¡Prueba superada! Activa la versión PRO para jugar todas las rondas completas y sin límites.",
             mensajeJuegoPremium: "¡Acceso Premium Autorizado! Estamos subiendo los nuevos contenidos de entretenimiento. ¡Vuelve pronto!",
-            mensajeReintentoDemo: "La función de repetir retos es exclusiva de la versión PRO. ¡Actívala para jugar sin límites!"
+            mensajeReintentoDemo: "La función de repetir retos es exclusiva de la versión PRO. ¡Actívala para jugar sin límites!",
+            mensajeReiniciarDemo: "Reiniciar el entrenamiento es exclusivo de la versión PRO. ¡Actívala para entrenar sin límites!"
         };
 
         const CONFIG_LINKS = {
@@ -522,6 +525,15 @@
         function abrirResena() {
             // Permitimos siempre dejar reseña independientemente del plan
             window.open(CONFIG_LINKS.resena, '_blank');
+        }
+
+        function handleReiniciar() {
+            // Validamos si el usuario puede reiniciar la app entera o no
+            if (CONFIG.PLAN === 'DEMO') {
+                showMessage(CONFIG_TEXTS.mensajeReiniciarDemo);
+            } else {
+                location.reload();
+            }
         }
 
         // UI HELPERS
