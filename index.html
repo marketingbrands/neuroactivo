@@ -158,41 +158,41 @@
         </nav>
 
         <!-- PANTALLA INICIO (ÚNICA) -->
-        <section id="screen-setup" class="glass-card p-6 fade-in mt-12">
-            <div class="mt-4 mb-8 text-center">
+        <section id="screen-setup" class="glass-card p-5 fade-in mt-6">
+            <div class="mt-2 mb-5 text-center">
                 <h2 class="text-3xl font-black text-green-800 uppercase tracking-tighter leading-none mb-3">MÉTODO NEURO ACTIVO 60+</h2>
                 <div class="h-1 w-20 bg-green-600 mx-auto rounded-full shadow-sm"></div>
             </div>
             
-            <div class="space-y-6 pt-2">
+            <div class="space-y-4 pt-1">
                 
                 <div>
-                    <label class="text-xs font-black text-gray-500 uppercase ml-1 mb-2 block">Nombre:</label>
-                    <input type="text" id="user-name" placeholder="Ejemplo: Rosa" class="w-full p-3.5 rounded-xl border-2 border-gray-200 bg-gray-50 text-base font-bold outline-none focus:border-green-500 transition text-gray-700 placeholder-gray-400">
+                    <label class="text-xs font-black text-gray-500 uppercase ml-1 mb-1 block">Nombre:</label>
+                    <input type="text" id="user-name" placeholder="Ejemplo: Rosa" class="w-full p-3 rounded-xl border-2 border-gray-200 bg-gray-50 text-base font-bold outline-none focus:border-green-500 transition text-gray-700 placeholder-gray-400">
                 </div>
 
                 <div>
-                    <label class="text-xs font-black text-gray-500 uppercase ml-1 mb-2 block tracking-wider">¿En qué nivel deseas entrenar hoy?</label>
+                    <label class="text-xs font-black text-gray-500 uppercase ml-1 mb-1.5 block tracking-wider">¿En qué nivel deseas entrenar hoy?</label>
                     <div class="grid grid-cols-3 gap-2">
-                        <button onclick="selectChoice('level', 'Basico')" id="level-Basico" class="toggle-btn py-4 text-sm active">Básico</button>
-                        <button onclick="selectChoice('level', 'Intermedio')" id="level-Intermedio" class="toggle-btn py-4 text-sm">Intermedio</button>
-                        <button onclick="selectChoice('level', 'Avanzado')" id="level-Avanzado" class="toggle-btn py-4 text-sm">Avanzado</button>
+                        <button onclick="selectChoice('level', 'Basico')" id="level-Basico" class="toggle-btn py-3 text-sm active">Básico</button>
+                        <button onclick="selectChoice('level', 'Intermedio')" id="level-Intermedio" class="toggle-btn py-3 text-sm">Intermedio</button>
+                        <button onclick="selectChoice('level', 'Avanzado')" id="level-Avanzado" class="toggle-btn py-3 text-sm">Avanzado</button>
                     </div>
                 </div>
 
-                <div class="pt-2 text-center border-t-2 border-gray-100">
-                    <p class="text-[11px] font-bold text-gray-700 mt-5 mb-4 uppercase tracking-widest">¿Cuánto tiempo dispones hoy?</p>
-                    <div class="grid grid-cols-3 gap-3 mb-6">
-                        <button onclick="selectChoice('time', 15)" id="time-15" class="toggle-btn py-4 text-base font-black">15m</button>
-                        <button onclick="selectChoice('time', 30)" id="time-30" class="toggle-btn py-4 text-base font-black active">30m</button>
-                        <button onclick="selectChoice('time', 60)" id="time-60" class="toggle-btn py-4 text-base font-black">60m</button>
+                <div class="pt-3 text-center border-t-2 border-gray-100">
+                    <p class="text-[11px] font-bold text-gray-700 mt-2 mb-3 uppercase tracking-widest">¿Cuánto tiempo dispones hoy?</p>
+                    <div class="grid grid-cols-3 gap-3 mb-4">
+                        <button onclick="selectChoice('time', 15)" id="time-15" class="toggle-btn py-3 text-base font-black">15m</button>
+                        <button onclick="selectChoice('time', 30)" id="time-30" class="toggle-btn py-3 text-base font-black active">30m</button>
+                        <button onclick="selectChoice('time', 60)" id="time-60" class="toggle-btn py-3 text-base font-black">60m</button>
                     </div>
 
-                    <button onclick="startTraining()" class="w-full py-4 bg-green-600 hover:bg-green-700 transition text-white rounded-xl font-black text-lg shadow-lg uppercase tracking-widest">
+                    <button onclick="startTraining()" class="w-full py-3.5 bg-green-600 hover:bg-green-700 transition text-white rounded-xl font-black text-base shadow-lg uppercase tracking-widest">
                         Iniciar Entrenamiento <i class="fas fa-play ml-1"></i>
                     </button>
                     
-                    <button onclick="navigate('library')" class="w-full py-4 mt-3 bg-orange-500 hover:bg-orange-600 transition text-white rounded-xl font-black text-sm shadow-md uppercase tracking-widest flex items-center justify-center gap-2">
+                    <button onclick="navigate('library')" class="w-full py-3 mt-2.5 bg-orange-500 hover:bg-orange-600 transition text-white rounded-xl font-black text-sm shadow-md uppercase tracking-widest flex items-center justify-center gap-2">
                         <i class="fas fa-folder-open text-lg"></i> Ir a Materiales / Drive
                     </button>
                 </div>
@@ -310,7 +310,7 @@
 
         <!-- PANTALLA BIBLIOTECA PREMIUM -->
         <section id="screen-library" class="hidden fade-in pb-8">
-            <h2 class="text-2xl font-black text-green-900 mb-1 uppercase tracking-tighter">Material Premium</h2>
+            <h2 class="text-2xl font-black text-green-900 mb-1 uppercase tracking-tighter">Material Exclusivo/h2>
             <p class="text-xs text-gray-500 mb-6 font-medium italic">Acceso ilimitado a tu biblioteca oficial.</p>
             
             <div class="mb-6">
